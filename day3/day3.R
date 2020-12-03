@@ -1,4 +1,4 @@
-# function to calculate x-coordinate based on equation of line
+# calculate x-coordinate based on equation of line
 x_coord <- function(right, down) {
   constant = right - down
   function(y) {
@@ -6,6 +6,7 @@ x_coord <- function(right, down) {
   }
 }
 
+# is the value approximately integer
 is_integerish <- function(x, tol = .Machine$double.eps^0.5)  {
   abs(x - round(x)) < tol
 }
@@ -19,18 +20,15 @@ num_trees <- function(input = "day3/input", right, down) {
   input <- readLines(input)
 
   # Work out area dimensions
-  input_width <- nchar(input[[1]])
-  area_height <- input_height <- length(input)
-  area_width <- fun(area_height)
+  width <- nchar(input[[1]])
+  height <- length(input)
 
   # convert input in to array
-  repetitions <- ceiling(area_width / input_width)
-  area <- do.call(rbind,strsplit(input, ""))
-  area <- do.call(cbind, replicate(repetitions, area, simplify = FALSE))
+  area <- do.call(rbind, strsplit(input, ""))
 
   # path coordinates
-  y_path <- 1:area_height
-  x_path <- fun(y_path)
+  y_path <- 1:height
+  x_path <- ((fun(y_path) - 1) %% width) + 1
 
   # convert to an integer path
   y_path <- y_path[is_integerish(x_path)]
