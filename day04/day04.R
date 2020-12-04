@@ -1,29 +1,22 @@
 input <- readLines("day04/input")
-groups <- cumsum(input == "")
-dat <- tapply(input, groups, paste, collapse = " ")
+dat <- tapply(input, cumsum(input == ""), paste, collapse = " ")
+fields <- c("byr:", "iyr:", "eyr:", "hgt:", "hcl:", "ecl:", "pid:")
+required <- sprintf("(?=.*%s)", fields)
+required <- paste(required, collapse = "")
+valid <- grep(required, dat, perl = TRUE, value = TRUE)
 
 # part one ---------------------------------------------------------------------
-required <- "(?=.*byr)(?=.*iyr)(?=.*eyr)(?=.*hgt)(?=.*hcl)(?=.*ecl)(?=.*pid)"
-idx <- grepl(required, dat, perl=TRUE)
-sum(idx)
+length(valid)
 
 # part two ---------------------------------------------------------------------
-valid <- dat[idx]
-fields <- c("byr:", "iyr:", "eyr:", "hgt:", "hcl:", "ecl:", "pid:")
 captures <- sprintf(".*%s(\\S*)", fields)
 tmp <- sapply(captures, strcapture, x = valid, proto = data.frame(character(0)))
 
-byr <- function(x) {
-    as.integer(x) >= 1920 & as.integer(x) <= 2002
-}
+byr <- function(x) as.integer(x) >= 1920 & as.integer(x) <= 2002
 
-iyr <- function(x){
-    as.integer(x) >= 2010 & as.integer(x) <= 2020
-}
+iyr <- function(x) as.integer(x) >= 2010 & as.integer(x) <= 2020
 
-eyr <- function(x) {
-    as.integer(x) >= 2020 & as.integer(x) <= 2030
-}
+eyr <- function(x) as.integer(x) >= 2020 & as.integer(x) <= 2030
 
 hgt <- function(x) {
     vapply(
@@ -43,17 +36,11 @@ hgt <- function(x) {
     )
 }
 
-hcl <- function(x) {
-    nchar(x) == 7 & grepl("#[a-f0-9]{6}$", x)
-}
+hcl <- function(x) nchar(x) == 7 & grepl("#[a-f0-9]{6}$", x)
 
-ecl <- function(x) {
-    x %in% c("amb", "blu", "brn", "gry", "grn", "hzl", "oth")
-}
+ecl <- function(x) x %in% c("amb", "blu", "brn", "gry", "grn", "hzl", "oth")
 
-pid <- function(x) {
-    (nchar(x) == 9) & (grepl("[0-9]{9}$", x))
-}
+pid <- function(x) (nchar(x) == 9) & (grepl("[0-9]{9}$", x))
 
 conditions <- list(byr, iyr, eyr, hgt, hcl, ecl, pid)
 res <- lapply(seq_along(conditions), function(i) conditions[[i]](tmp[[i]]))
