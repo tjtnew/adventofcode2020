@@ -12,7 +12,7 @@ is_integerish <- function(x, tol = .Machine$double.eps^0.5)  {
 }
 
 # function to calculate collisions
-num_trees <- function(input = "day3/input", right, down) {
+num_trees <- function(input = "day03/input", right, down) {
 
   fun <- x_coord(right, down)
 
@@ -44,10 +44,3 @@ num_trees(right = 3, down = 1)
 
 # part 2
 prod(mapply(num_trees, right = c(1, 3, 5, 7, 1), down = c(1, 1, 1, 1, 2)))
-
-
-
-
-
-
-

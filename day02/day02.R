@@ -1,5 +1,5 @@
 # load input
-input <- readLines("day2/input")
+input <- readLines("day02/input")
 
 # split input and transpose
 dat <- strsplit(input, " ")

@@ -1,5 +1,5 @@
 # Load data --------------------------------------------------------------------
-input <- as.integer(readLines("day1/input"))
+input <- as.integer(readLines("day01/input"))
 
 # Part 1 -----------------------------------------------------------------------
 dat <- expand.grid(input, input)
