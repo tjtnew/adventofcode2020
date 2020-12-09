@@ -27,4 +27,4 @@ while (!finished) {
   }
   amount <- amount + 1
 }
-
+ans_2
