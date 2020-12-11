@@ -18,7 +18,9 @@ prod(res)
 
 
 # method below was a fluke.  I saw a pattern for the length 4 clusters and it
-# happened to work.  If we went to length 5 clusters it wouldn't.
+# happened to work.  If we went to length 5 clusters it wouldn't.......
+#
+# fluke answer
 # sum from (N - 2):N of N choose k is same as sum from 0:2 of N choose k
 # tmp <- sapply(0:2, function(x) choose(l[v == 1] - 1, x))
 # prod(rowSums(tmp))
