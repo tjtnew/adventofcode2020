@@ -10,7 +10,7 @@ earliest_bus_time <- next_bus_times[earliest_bus]
 earliest_bus_id <- bus_ids[earliest_bus]
 (earliest_bus_time - estimate) * earliest_bus_id
 
-# part two ---------------------------------------------------------------------
+# part two ----- https://en.wikipedia.org/wiki/Chinese_remainder_theorem) ------
 modulo <- bus_ids
 minutes <- (which(ids != "x") - 1) %% modulo
 modulo <- modulo[order(bus_ids, decreasing = TRUE)]
@@ -28,7 +28,3 @@ for (i in seq_along(modulo)) {
   product <- product * modulo[i]
 }
 tt
-
-
-
-
